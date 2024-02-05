@@ -6,7 +6,6 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof SimpleLineIcons>['name'];
   color: string;
   size: number;
-  focused: boolean;
 }) {
   return <SimpleLineIcons style={styles.tabBarIcon} {...props} size={props.size} />;
 }
@@ -15,15 +14,16 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: 'red',
       }}>
       <Tabs.Screen
         name="index"
         options={{
           headerShown: false,
-          title: '',
-          tabBarIcon: ({ color, size, focused }) => (
-            <TabBarIcon focused={focused} size={size} name="social-reddit" color={color} />
+          tabBarLabel: '',
+          headerTitleAlign: 'center',
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon size={size} name="social-reddit" color={color} />
           ),
         }}
       />
@@ -31,17 +31,15 @@ export default function TabLayout() {
         name="anime"
         options={{
           title: '',
-          tabBarIcon: ({ color, size, focused }) => (
-            <TabBarIcon focused={focused} name="ghost" size={size} color={color} />
-          ),
+          tabBarIcon: ({ color, size }) => <TabBarIcon name="ghost" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="mobile"
         options={{
           title: '',
-          tabBarIcon: ({ color, size, focused }) => (
-            <TabBarIcon focused={focused} name="screen-smartphone" size={size} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="screen-smartphone" size={size} color={color} />
           ),
         }}
       />
@@ -49,8 +47,8 @@ export default function TabLayout() {
         name="desktop"
         options={{
           title: '',
-          tabBarIcon: ({ color, size, focused }) => (
-            <TabBarIcon focused={focused} name="screen-desktop" size={size} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="screen-desktop" size={size} color={color} />
           ),
         }}
       />
