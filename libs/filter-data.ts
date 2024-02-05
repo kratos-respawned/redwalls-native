@@ -5,9 +5,8 @@ export const filterData = (arr: any) => {
   arr
     .filter((item: any) => {
       return (
-        typeof item.data.preview !== 'undefined' &&
-        item.data.is_video !== true &&
-        item.data.over_18 !== true
+        typeof item.data.preview !== 'undefined' && item.data.is_video !== true
+        // && item.data.over_18 !== true
       );
     })
     .map((item: any) => {
@@ -22,7 +21,7 @@ export const filterData = (arr: any) => {
           item.data.preview.images[0].resolutions[2].width >
           item.data.preview.images[0].resolutions[2].height
             ? item.data.preview.images[0].resolutions[3].url
-            : item.data.preview.images[0].resolutions[2].url,
+            : item.data.preview.images[0].resolutions[3].url,
         url: item.data.url,
       });
     });

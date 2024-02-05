@@ -15,6 +15,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'red',
+        headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
@@ -40,15 +41,6 @@ export default function TabLayout() {
           title: '',
           tabBarIcon: ({ color, size }) => (
             <TabBarIcon name="screen-smartphone" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="desktop"
-        options={{
-          title: '',
-          tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="screen-desktop" size={size} color={color} />
           ),
         }}
       />

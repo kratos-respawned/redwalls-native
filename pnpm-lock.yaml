@@ -29,12 +29,21 @@ dependencies:
   expo-constants:
     specifier: ~15.4.5
     version: 15.4.5(expo@50.0.5)
+  expo-file-system:
+    specifier: ~16.0.5
+    version: 16.0.5(expo@50.0.5)
   expo-image:
     specifier: ~1.10.5
     version: 1.10.5(expo@50.0.5)
   expo-linking:
     specifier: ~6.2.2
     version: 6.2.2(expo@50.0.5)
+  expo-media-library:
+    specifier: ~15.9.1
+    version: 15.9.1(expo@50.0.5)
+  expo-permissions:
+    specifier: ^14.4.0
+    version: 14.4.0(expo@50.0.5)
   expo-router:
     specifier: ^3.4.6
     version: 3.4.6(expo-constants@15.4.5)(expo-linking@6.2.2)(expo-modules-autolinking@1.10.2)(expo-status-bar@1.11.1)(expo@50.0.5)(react-dom@18.2.0)(react-native-reanimated@3.6.2)(react-native-safe-area-context@4.9.0)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0)
@@ -4876,6 +4885,14 @@ packages:
       - supports-color
     dev: false
 
+  /expo-media-library@15.9.1(expo@50.0.5):
+    resolution: {integrity: sha512-Y29uKFJ3qWwNejIrjoCppXp3OgIFs/RYHWXkF9xey6evpNrUlHoP1WHG2jYAMSrss6aIRVt3tO7EtYUCZxz50Q==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 50.0.5(@babel/core@7.23.9)(@react-native/babel-preset@0.73.20)
+    dev: false
+
   /expo-modules-autolinking@1.10.2:
     resolution: {integrity: sha512-OEeoz0+zGx5EJwGtDm9pSywCr+gUCaisZV0mNkK7V3fuRl+EVPBSsI+957JwAc4ZxVps95jy28eLcRRtQ33yVg==}
     hasBin: true
@@ -4894,6 +4911,14 @@ packages:
     resolution: {integrity: sha512-rlctE3nCNLCGv3LosGQNaTuwGrr2SyQA+hOgci/0l+VRc0gFNtvl0gskph9C0tnN1jzBeb8rRZQYVj5ih1yxcA==}
     dependencies:
       invariant: 2.2.4
+    dev: false
+
+  /expo-permissions@14.4.0(expo@50.0.5):
+    resolution: {integrity: sha512-oAcnJ7dlZhpBydK73cwomA2xofizayVUz+FW5REl7dMu7MYyeN/3aqhlpZ3mYddrxvG161bqu97MQr01UixUnw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 50.0.5(@babel/core@7.23.9)(@react-native/babel-preset@0.73.20)
     dev: false
 
   /expo-router@3.4.6(expo-constants@15.4.5)(expo-linking@6.2.2)(expo-modules-autolinking@1.10.2)(expo-status-bar@1.11.1)(expo@50.0.5)(react-dom@18.2.0)(react-native-reanimated@3.6.2)(react-native-safe-area-context@4.9.0)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0):
