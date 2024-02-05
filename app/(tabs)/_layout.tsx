@@ -1,12 +1,14 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, StyleSheet } from 'react-native';
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import { StyleSheet } from 'react-native';
 
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof SimpleLineIcons>['name'];
   color: string;
+  size: number;
+  focused: boolean;
 }) {
-  return <FontAwesome size={28} style={styles.tabBarIcon} {...props} />;
+  return <SimpleLineIcons style={styles.tabBarIcon} {...props} size={props.size} />;
 }
 
 export default function TabLayout() {
@@ -18,29 +20,38 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color="gray"
-                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          headerShown: false,
+          title: '',
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon focused={focused} size={size} name="social-reddit" color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="anime"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: '',
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon focused={focused} name="ghost" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="mobile"
+        options={{
+          title: '',
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon focused={focused} name="screen-smartphone" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="desktop"
+        options={{
+          title: '',
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon focused={focused} name="screen-desktop" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>
