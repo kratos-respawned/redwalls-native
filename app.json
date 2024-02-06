@@ -3,8 +3,7 @@
     "name": "redwalls-native",
     "slug": "redwalls-native",
     "version": "1.0.0",
-
-    "scheme": "redwalls-native",
+    "scheme": "redwalls",
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -24,10 +23,8 @@
     ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -36,14 +33,34 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos. I dont know why it needs this permission.",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos. This will let $(PRODUCT_NAME) download images to your device."
+      },
+      "bundleIdentifier": "com.younicorn.redwalls"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.younicorn.redwalls"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a0a3c02e-e162-4c28-aab3-59b297337803"
       }
     }
   }

@@ -1,11 +1,33 @@
-import * as FileSystem from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
-import { Alert } from 'react-native';
-
-export const handleDownload = async (name: string, url: string) => {
-  const fileUri = FileSystem.documentDirectory + `${name}.jpg`;
+import { documentDirectory, downloadAsync } from 'expo-file-system';
+import {
+  addAssetsToAlbumAsync,
+  createAlbumAsync,
+  createAssetAsync,
+  getAlbumAsync,
+  requestPermissionsAsync,
+} from 'expo-media-library';
+import { Alert, Platform } from 'react-native';
+export const downloadWallpaper = async (name: string, url: string) => {
   try {
-    const res = await FileSystem.downloadAsync(url, fileUri);
+    if (Platform.OS === 'web') {
+      const img = await fetch(url);
+      const blob = await img.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+    } else {
+      await handleDownload(name, url);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+const handleDownload = async (name: string, url: string) => {
+  const fileUri = documentDirectory + `${name.slice(0, 10)}.jpg`;
+  try {
+    const res = await downloadAsync(url, fileUri);
+    console.log('Downloaded: ', res);
     saveFile(res.uri);
   } catch (err) {
     console.log('FS Err: ', err);
@@ -13,18 +35,20 @@ export const handleDownload = async (name: string, url: string) => {
 };
 
 const saveFile = async (fileUri: string) => {
-  const permission = await MediaLibrary.requestPermissionsAsync();
+  console.log('Save file: ', fileUri);
+
+  const permission = await requestPermissionsAsync();
   if (!permission.granted) {
     Alert.alert('Permission required', 'You need to grant permission to save the image');
     return;
   }
   try {
-    const asset = await MediaLibrary.createAssetAsync(fileUri);
-    const album = await MediaLibrary.getAlbumAsync('Download');
+    const asset = await createAssetAsync(fileUri);
+    const album = await getAlbumAsync('Redwalls');
     if (album == null) {
-      await MediaLibrary.createAlbumAsync('Download', asset, false);
+      await createAlbumAsync('Redwalls', asset, false);
     } else {
-      await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+      await addAssetsToAlbumAsync([asset], album, false);
     }
   } catch (err) {
     console.log('Save err: ', err);
