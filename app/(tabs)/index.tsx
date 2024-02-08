@@ -47,6 +47,8 @@ export default function Index() {
         <MasonryFlashList
           refreshing={false}
           onRefresh={refetch}
+          onEndReachedThreshold={isTabletOrMobileDevice ? 0.5 : 0.2}
+          onEndReached={() => console.log('test')}
           numColumns={isTabletOrMobileDevice ? 1 : 2}
           contentContainerStyle={{ backgroundColor: 'white' }}
           data={wallpapers}
