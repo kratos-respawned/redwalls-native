@@ -6,7 +6,7 @@ import {
   getAlbumAsync,
   requestPermissionsAsync,
 } from 'expo-media-library';
-import { Alert, Platform } from 'react-native';
+import { Platform, ToastAndroid } from 'react-native';
 export const downloadWallpaper = async (name: string, url: string) => {
   try {
     if (Platform.OS === 'web') {
@@ -24,12 +24,13 @@ export const downloadWallpaper = async (name: string, url: string) => {
   }
 };
 const handleDownload = async (name: string, url: string) => {
-  const fileUri = documentDirectory + `/redwalls/${name.slice(0, 10)}.jpg`;
+  ToastAndroid.show('Downloading...', ToastAndroid.SHORT);
+  const fileUri = documentDirectory + `/${name.slice(0, 10)}.jpg`;
   try {
     const res = await downloadAsync(url, fileUri);
-    console.log('Downloaded: ', res);
-    // saveFile(res.uri);
+    saveFile(res.uri);
   } catch (err) {
+    ToastAndroid.show('Download failed', ToastAndroid.SHORT);
     console.log('FS Err: ', err);
   }
 };
@@ -39,7 +40,7 @@ const saveFile = async (fileUri: string) => {
 
   const permission = await requestPermissionsAsync();
   if (!permission.granted) {
-    Alert.alert('Permission required', 'You need to grant permission to save the image');
+    ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
     return;
   }
   try {
@@ -49,8 +50,9 @@ const saveFile = async (fileUri: string) => {
       await createAlbumAsync('Redwalls', asset, false);
     } else {
       await addAssetsToAlbumAsync([asset], album, false);
+      ToastAndroid.show('Wallpaper saved', ToastAndroid.SHORT);
     }
   } catch (err) {
-    console.log('Save err: ', err);
+    ToastAndroid.show('Save failed', ToastAndroid.SHORT);
   }
 };
