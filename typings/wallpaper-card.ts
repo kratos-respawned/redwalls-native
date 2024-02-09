@@ -1,5 +1,6 @@
 export type WallpaperCard = {
   title: string;
+  after: string;
   author: string;
   subreddit: string;
   img: string;

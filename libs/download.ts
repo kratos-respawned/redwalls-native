@@ -24,11 +24,11 @@ export const downloadWallpaper = async (name: string, url: string) => {
   }
 };
 const handleDownload = async (name: string, url: string) => {
-  const fileUri = documentDirectory + `${name.slice(0, 10)}.jpg`;
+  const fileUri = documentDirectory + `/redwalls/${name.slice(0, 10)}.jpg`;
   try {
     const res = await downloadAsync(url, fileUri);
     console.log('Downloaded: ', res);
-    saveFile(res.uri);
+    // saveFile(res.uri);
   } catch (err) {
     console.log('FS Err: ', err);
   }
