@@ -4,6 +4,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
+import { useState } from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMediaQuery } from 'react-responsive';
@@ -14,12 +15,13 @@ import { fetchWallpapers } from '~/libs/fetch-data';
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 const subreddit = 'wallpaper+wallpapers+wallpaperengine';
+
 export default function Index() {
   const inset = useSafeAreaInsets();
   const isTabletOrMobileDevice = useMediaQuery({
     maxDeviceWidth: 768,
   });
-
+  const [url, setUrl] = useState('');
   const {
     data: wallpaperPage,
     fetchNextPage,
@@ -30,6 +32,7 @@ export default function Index() {
     initialPageParam: '0',
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+
     queryFn: ({ pageParam }) => fetchWallpapers({ pageParam, subreddit }),
     getNextPageParam: (l) => l.at(0)?.after,
   });
@@ -56,7 +59,7 @@ export default function Index() {
           data={wallpaperPage?.pages}
           estimatedItemSize={1000}
           renderItem={(list) => (
-            <View key={list.index}>
+            <View>
               {list.item.map((item, i) => (
                 <View key={i} className="relative rounded-2xl">
                   <Image

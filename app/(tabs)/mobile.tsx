@@ -56,7 +56,7 @@ export default function Index() {
           data={wallpaperPage?.pages}
           estimatedItemSize={1000}
           renderItem={(list) => (
-            <View key={list.index}>
+            <View>
               {list.item.map((item, i) => (
                 <View key={i} className="relative rounded-2xl">
                   <Image
