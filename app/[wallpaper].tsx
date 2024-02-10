@@ -29,6 +29,7 @@ export default function Auth() {
         }}
       />
       <Image
+        cachePolicy="disk"
         placeholder={blurhash}
         contentFit="contain"
         transition={500}
