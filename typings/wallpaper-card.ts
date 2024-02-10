@@ -7,5 +7,8 @@ export type WallpaperCard = {
   url: string;
   width: number;
   height: number;
-  blurUrl?: string;
+  blurUrl: string;
+  highResUrl: string;
+  highResHeight: string;
+  highResWidth: string;
 };

@@ -1,13 +1,12 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { StyleSheet } from 'react-native';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof SimpleLineIcons>['name'];
   color: string;
   size: number;
 }) {
-  return <SimpleLineIcons style={styles.tabBarIcon} {...props} size={props.size} />;
+  return <SimpleLineIcons {...props} size={props.size} />;
 }
 
 export default function TabLayout() {
@@ -15,14 +14,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'red',
-        headerShown: false,
+        headerTitleAlign: 'center',
+        headerTitleStyle: { fontSize: 16 },
+        tabBarShowLabel: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          headerShown: false,
-          tabBarLabel: '',
-          headerTitleAlign: 'center',
+          headerTitle: 'Redwalls',
           tabBarIcon: ({ color, size }) => (
             <TabBarIcon size={size} name="social-reddit" color={color} />
           ),
@@ -31,14 +30,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="anime"
         options={{
-          title: '',
+          headerTitle: 'Anime',
           tabBarIcon: ({ color, size }) => <TabBarIcon name="ghost" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="mobile"
         options={{
-          title: '',
+          headerTitle: 'Mobile',
           tabBarIcon: ({ color, size }) => (
             <TabBarIcon name="screen-smartphone" size={size} color={color} />
           ),
@@ -47,12 +46,3 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  headerRight: {
-    marginRight: 15,
-  },
-  tabBarIcon: {
-    marginBottom: -3,
-  },
-});

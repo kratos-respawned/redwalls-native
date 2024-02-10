@@ -39,6 +39,7 @@ const saveFile = async (fileUri: string) => {
   console.log('Save file: ', fileUri);
 
   const permission = await requestPermissionsAsync();
+  console.log('Permission: ', permission);
   if (!permission.granted) {
     ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
     return;
@@ -52,7 +53,8 @@ const saveFile = async (fileUri: string) => {
       await addAssetsToAlbumAsync([asset], album, false);
       ToastAndroid.show('Wallpaper saved', ToastAndroid.SHORT);
     }
-  } catch (err) {
+  } catch (e) {
+    console.log('Save Err: ', e);
     ToastAndroid.show('Save failed', ToastAndroid.SHORT);
   }
 };

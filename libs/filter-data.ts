@@ -24,6 +24,12 @@ export const filterData = (arr: any[], after: string) => {
             ? item.data.preview.images[0].resolutions[2].url
             : item.data.preview.images[0].resolutions[2].url,
         url: item.data.url,
+        blurUrl: item.data.preview.images[0].resolutions[0].url,
+        highResUrl: item.data.preview.images[0].resolutions[3].url,
+        highResHeight:
+          item.data.preview.images[0].resolutions[3].height ??
+          item.data.preview.images[0].resolutions[1].height,
+        highResWidth: item.data.preview.images[0].resolutions[3].width,
       });
     });
   if (data.length === 0) return [];
