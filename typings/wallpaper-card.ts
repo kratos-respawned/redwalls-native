@@ -11,4 +11,6 @@ export type WallpaperCard = {
   highResUrl: string;
   highResHeight: string;
   highResWidth: string;
+  orientation: 'portrait' | 'landscape';
+  nsfw: boolean;
 };

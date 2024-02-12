@@ -5,7 +5,13 @@ export const filterData = (arr: any[], after: string) => {
   arr
     .filter((item: any) => {
       return (
-        typeof item.data.preview !== 'undefined' && item.data.is_video !== true
+        typeof item.data.preview !== 'undefined' &&
+        item.data.is_video !== true &&
+        // check for duplicate images
+        data.every((wall) => wall.img !== item.data.preview.images[0].resolutions[2].url) &&
+        // check for duplicate titles
+        data.every((wall) => wall.title !== item.data.title)
+
         // && item.data.over_18 !== true
       );
     })
@@ -30,6 +36,12 @@ export const filterData = (arr: any[], after: string) => {
           item.data.preview.images[0].resolutions[3].height ??
           item.data.preview.images[0].resolutions[1].height,
         highResWidth: item.data.preview.images[0].resolutions[3].width,
+        orientation:
+          item.data.preview.images[0].resolutions[2].width >
+          item.data.preview.images[0].resolutions[2].height
+            ? 'landscape'
+            : 'portrait',
+        nsfw: item.data.over_18,
       });
     });
   if (data.length === 0) return [];

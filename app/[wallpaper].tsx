@@ -25,7 +25,7 @@ export default function Auth() {
     <View className="flex-1 relative justify-center">
       <Stack.Screen
         options={{
-          headerTitle: title,
+          headerTitle: title.split('[').at(0)?.slice(0, 30),
         }}
       />
       <Image
