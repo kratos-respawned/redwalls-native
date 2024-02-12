@@ -3,9 +3,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { FC } from 'react';
-import { RefreshControl, ScrollView, Text, ToastAndroid, View } from 'react-native';
+import { Pressable, RefreshControl, ScrollView, Text, ToastAndroid, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // import type {} from "expo-router"
@@ -17,6 +18,7 @@ const tabs = ['anime', 'desktop', 'mobile'];
 export default function Index() {
   return (
     <View className="bg-white   flex-1 ">
+      <StatusBar style="dark" />
       <SafeAreaView>
         <ScrollView
           refreshControl={
@@ -78,6 +80,16 @@ const Carousel: FC<CarouselProps> = ({ title, orientation, subreddit, link }) =>
     queryKey: [subreddit + 'home'],
     queryFn: () => fetchWallpapers({ pageParam: '0', subreddit }),
   });
+
+  const navigate = (data: any) => {
+    const wallData = JSON.stringify(data);
+    router.push({
+      pathname: '/[wallpaper]',
+      params: {
+        wallpaper: wallData,
+      },
+    });
+  };
   return (
     <View className="pt-6 ">
       <Text className="text-2xl px-5 font-bold text-zinc-950 ">{title}</Text>
@@ -99,22 +111,18 @@ const Carousel: FC<CarouselProps> = ({ title, orientation, subreddit, link }) =>
           ?.filter((item) => item.orientation === orientation)
           .slice(0, 5)
           .map((item, index) => (
-            <Link
-              asChild
-              key={index}
-              href={{
-                pathname: '/[wallpaper]',
-                params: {
-                  wallpaper: JSON.stringify({
-                    url: item.highResUrl,
-                    title: item.title,
-                    author: item.author,
-                    subreddit: item.subreddit,
-                    height: item.highResHeight.toString(),
-                    blurhash: item.blurUrl.toString(),
-                  }),
-                },
-              }}>
+            <Pressable
+              onPress={() =>
+                navigate({
+                  url: item.highResUrl,
+                  title: item.title,
+                  author: item.author,
+                  subreddit: item.subreddit,
+                  height: item.highResHeight.toString(),
+                  blurhash: item.blurUrl.toString(),
+                })
+              }
+              key={index}>
               <View
                 key={item.title}
                 className={`${orientation === 'portrait' ? 'aspect-[9/16] w-64' : ' w-80 h-60 '} bg-gray-200  relative rounded-3xl overflow-hidden`}>
@@ -127,7 +135,7 @@ const Carousel: FC<CarouselProps> = ({ title, orientation, subreddit, link }) =>
                   style={{ width: '100%', height: '100%' }}
                 />
               </View>
-            </Link>
+            </Pressable>
           ))}
 
         <Link href={link} className="mr-5">

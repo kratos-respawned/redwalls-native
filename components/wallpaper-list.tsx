@@ -1,5 +1,6 @@
 import { AnimatedFlashList } from '@shopify/flash-list';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMediaQuery } from 'react-responsive';
@@ -30,7 +31,8 @@ export const WallpaperList = ({ subreddit, title }: { subreddit: string; title: 
   });
   const inset = useSafeAreaInsets();
   return (
-    <View style={{ paddingTop: inset.top }} className=" bg-white flex-1 px-4">
+    <View style={{ paddingTop: inset.top }} className=" bg-white flex-1 px-4 ">
+      <StatusBar style="dark" />
       {loading ? (
         <View className="justify-center items-center flex-1">
           <ActivityIndicator color="black" size="large" />
