@@ -1,7 +1,7 @@
 import { FlashList } from '@shopify/flash-list';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMediaQuery } from 'react-responsive';
 
@@ -25,7 +25,6 @@ export const WallpaperList = ({ subreddit, title }: { subreddit: string; title: 
     initialPageParam: '0',
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-
     queryFn: ({ pageParam }) => fetchWallpapers({ pageParam, subreddit }),
     getNextPageParam: (l) => l[l.length - 1].after,
   });
@@ -43,13 +42,16 @@ export const WallpaperList = ({ subreddit, title }: { subreddit: string; title: 
           ListHeaderComponent={() => (
             <>
               <Text className="text-4xl font-bold pt-2">{title}</Text>
-              <View className=" pt-5 pb-5 flex-row ">
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                className=" pt-5 pb-5 flex-row ">
                 {subreddit.split('+').map((tab) => (
                   <View className="bg-zinc-950  px-4  py-1 rounded-full mr-3 " key={tab}>
                     <Text className="text-white">{tab}</Text>
                   </View>
                 ))}
-              </View>
+              </ScrollView>
             </>
           )}
           showsVerticalScrollIndicator={false}

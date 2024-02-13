@@ -40,8 +40,8 @@ export default function Index() {
         </View>
         <Carousel
           title="Anime"
-          key="Animewallpaper"
-          subreddit="Animewallpaper"
+          key="animewallpapers+animebackgrounds+animephonewallpapers"
+          subreddit="animewallpapers+animebackgrounds+animephonewallpapers"
           orientation="portrait"
           // @ts-expect-error
           link="/anime"
@@ -56,8 +56,8 @@ export default function Index() {
         />
         <Carousel
           title="Mobile"
-          key="mobilewallpapers"
-          subreddit="mobilewallpapers"
+          key="MobileWallpapers4K+HDMobileWalls"
+          subreddit="MobileWallpapers4K+HDMobileWalls"
           orientation="portrait"
           // @ts-expect-error
           link="/mobile"

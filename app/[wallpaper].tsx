@@ -3,7 +3,7 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { favourites } from './_layout';
@@ -24,8 +24,14 @@ type CardProps = {
 export default function Auth() {
   const { wallpaper } = useLocalSearchParams<{ wallpaper: string }>();
   const data = JSON.parse(wallpaper) as WallpaperCard;
-  const { url, title, highResHeight, blurUrl } = data;
+  const { url, highResUrl, title, highResHeight, blurUrl } = data;
   const [isFav, setIsFav] = useState(false);
+  useEffect(() => {
+    const rawJSON = favourites.getString('favWalls');
+    const favs: WallpaperCard[] = JSON.parse(rawJSON || '[]');
+    const isFav = favs.some((item) => item.url === url);
+    setIsFav(isFav);
+  }, []);
   const setFav = () => {
     setIsFav((prev) => !prev);
     const rawJSON = favourites.getString('favWalls');
@@ -51,7 +57,7 @@ export default function Auth() {
         contentFit="contain"
         transition={500}
         style={{ height: parseInt(highResHeight) }}
-        source={{ uri: url }}
+        source={{ uri: highResUrl }}
       />
       <LinearGradient
         className="absolute flex-1 justify-end pb-5  h-full w-full z-30"

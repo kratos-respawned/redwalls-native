@@ -1,38 +1,40 @@
 import { FlashList } from '@shopify/flash-list';
-import { useQuery } from '@tanstack/react-query';
+import { useFocusEffect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { useCallback, useState } from 'react';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMediaQuery } from 'react-responsive';
 
 import { favourites } from './_layout';
 
 import { WallCard } from '~/components/wallpaper-card';
-import { fetchWallpapers } from '~/libs/fetch-data';
 import { WallpaperCard } from '~/typings/wallpaper-card';
 export default function Favourites() {
   const isTabletOrMobileDevice = useMediaQuery({
     maxDeviceWidth: 768,
   });
-  const rawJSON = favourites.getString('favWalls');
-  const favs: WallpaperCard[] = JSON.parse(rawJSON || '[]');
-  console.log(favs);
-  const { isLoading, data } = useQuery({
-    queryKey: ['animewallpapers' + 'home'],
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: () => fetchWallpapers({ pageParam: '0', subreddit: 'animewallpapers' }),
-  });
 
+  const [favs, setFavs] = useState<WallpaperCard[]>(JSON.parse('[]'));
+  useFocusEffect(
+    useCallback(() => {
+      const rawJSON = favourites.getString('favWalls') || '[]';
+      const favs: WallpaperCard[] = JSON.parse(rawJSON);
+      setFavs(favs);
+    }, [])
+  );
   const inset = useSafeAreaInsets();
 
   return (
     <View style={{ paddingTop: inset.top }} className=" bg-white flex-1 px-4 ">
       <StatusBar style="dark" />
-      {isLoading ? (
-        <View className="justify-center items-center flex-1">
-          <ActivityIndicator color="black" size="large" />
-        </View>
+      {favs.length === 0 ? (
+        <>
+          <Text className="text-4xl font-bold pt-5 pb-5">Favourites</Text>
+          <View className="justify-center items-center flex-1">
+            <Text className="text-2xl">No Favourites</Text>
+          </View>
+        </>
       ) : (
         <FlashList
           refreshing={false}
