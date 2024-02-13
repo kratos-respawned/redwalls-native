@@ -31,48 +31,13 @@ export const WallCard: FC<{ wall: WallpaperCard }> = ({ wall }) => {
             pathname: '/[wallpaper]',
             params: {
               wallpaper: JSON.stringify({
-                url: wall.highResUrl,
-                title: wall.title,
-                author: wall.author,
-                subreddit: wall.subreddit,
-                height: wall.highResHeight.toString(),
-                blurhash: wall.blurUrl.toString(),
+                ...wall,
               }),
             },
           }}>
           <Feather name="link" size={22} color="white" />
         </Link>
       </LinearGradient>
-      {/* <BlurView
-        intensity={90}
-        blurReductionFactor={0}
-        tint="systemUltraThinMaterialDark"
-        renderToHardwareTextureAndroid
-        style={{
-          paddingVertical: 9,
-          justifyContent: 'flex-end',
-        }}
-        className="absolute w-full  gap-5   flex-row justify-end items-end bottom-0    ">
-        <Pressable onPress={() => downloadWallpaper(wall.title, wall.url)}>
-          <Feather name="download" size={22} color="white" />
-        </Pressable>
-        <Link
-          href={{
-            pathname: '/[wallpaper]',
-            params: {
-              wallpaper: JSON.stringify({
-                url: wall.highResUrl,
-                title: wall.title,
-                author: wall.author,
-                subreddit: wall.subreddit,
-                height: wall.highResHeight.toString(),
-                blurhash: wall.blurUrl.toString(),
-              }),
-            },
-          }}>
-          <Feather name="link" size={22} color="white" />
-          </Link>
-        </BlurView> */}
     </View>
   );
 };

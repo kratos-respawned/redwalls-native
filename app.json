@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "redwalls-native",
-    "slug": "redwalls-native",
-    "version": "1.0.0",
+    "name": "redwalls",
+    "slug": "redwalls",
+    "version": "1.5.0",
     "scheme": "redwalls",
     "web": {
       "bundler": "metro",

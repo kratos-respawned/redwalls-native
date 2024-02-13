@@ -36,10 +36,7 @@ const handleDownload = async (name: string, url: string) => {
 };
 
 const saveFile = async (fileUri: string) => {
-  console.log('Save file: ', fileUri);
-
   const permission = await requestPermissionsAsync();
-  console.log('Permission: ', permission);
   if (!permission.granted) {
     ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
     return;
@@ -48,10 +45,23 @@ const saveFile = async (fileUri: string) => {
     const asset = await createAssetAsync(fileUri);
     const album = await getAlbumAsync('Redwalls');
     if (album == null) {
-      await createAlbumAsync('Redwalls', asset, false);
+      createAlbumAsync('Redwalls', asset, false)
+        .then(() => {
+          ToastAndroid.show('Wallpaper saved', ToastAndroid.SHORT);
+        })
+        .catch((e) => {
+          console.log('Create Album Err: ', e);
+          ToastAndroid.show('Save failed', ToastAndroid.SHORT);
+        });
     } else {
-      await addAssetsToAlbumAsync([asset], album, false);
-      ToastAndroid.show('Wallpaper saved', ToastAndroid.SHORT);
+      addAssetsToAlbumAsync([asset], album, false)
+        .then(() => {
+          ToastAndroid.show('Wallpaper saved', ToastAndroid.SHORT);
+        })
+        .catch((e) => {
+          console.log('Create Album Err: ', e);
+          ToastAndroid.show('Save failed', ToastAndroid.SHORT);
+        });
     }
   } catch (e) {
     console.log('Save Err: ', e);
